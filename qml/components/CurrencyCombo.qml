@@ -29,6 +29,7 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import harbour.currencyconverter.currencies 1.0
 
 ComboBox {
     id: currencyCombo;
@@ -45,9 +46,11 @@ ComboBox {
         }
 
         // Use the children directly from the model as the menu isn't populated yet
-        var currencies = currencyModel.children;
+        //var currencies = currencyModel.children;
 
-        for(var i = 0; i < currencies.length; i++ ) {
+        console.log('model', currencyModel.length)
+        for(var i = 0; i < currencyModel.rowCount(); i++ ) {
+            console.log('row:', currencyModel.itemData(i));
             if(currencies[i].code === currentCurrency) {
                 currentIndex = i;
                 return;
@@ -57,8 +60,8 @@ ComboBox {
 
     onCurrentIndexChanged: {
         console.log('currentIndex changed', currentIndex);
-        var currency = currencyModel.children[currentIndex];
-        currencyCombo.activated(currency);
+        //var currency = currencyModel.data(currentIndex, 0);
+        currencyCombo.activated(currency.code);
         _updating = true;
         currentCurrency = currency.code;
         _updating = false;
@@ -67,7 +70,10 @@ ComboBox {
     menu: ContextMenu {
         id: contextMenu;
         Repeater {
-             model: currencyModel
+             model: CurrencyModel {}
+             delegate: MenuItem {
+                 text: currency.title;
+             }
         }
         onActivated: {
             var currency = contextMenu.children[index];
@@ -78,7 +84,7 @@ ComboBox {
         }
     }
 
-    CurrencyModel {
+    /*CurrencyModel {
         id: currencyModel
-    }
+    }*/
 }

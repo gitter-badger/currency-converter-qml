@@ -14,7 +14,10 @@ CONFIG += sailfishapp
 
 SOURCES += \
     src/$${TARGET}.cpp \
-    src/qmlsettings.cpp
+    src/qmlsettings.cpp \
+    src/currencyitem2.cpp \
+    src/currencymodel2.cpp \
+    src/currencymodel_plugin.cpp
 
 TRANSLATIONS = \
     translations/da_DK.ts \
@@ -52,7 +55,8 @@ OTHER_FILES += \
     qml/components/CurrencyCombo.qml \
     qml/harbour-currencyconverter.qml \
     transifex.sh \
-    .travis.yml
+    .travis.yml \
+    src/qmldir
 
 lupdate_only {
     SOURCES += $${QML_FILES}
@@ -66,9 +70,15 @@ OTHER_FILES += \
     harbour-currencyconverter.desktop \
     qml/harbour-currencyconverter.qml \
     README.md \
-    LICENSE
+    LICENSE \
+    TODO \
+    Changelog
 
 HEADERS += \
-    src/qmlsettings.h
+    src/qmlsettings.h \
+    src/currencyitem2.h \
+    src/currencymodel2.h \
+    src/currencymodel_plugin.h
 
 INSTALLS += translations
+
